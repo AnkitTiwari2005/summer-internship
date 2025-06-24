@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack Pro - Expense Manager</title>
+    <!-- Link to our custom stylesheet for visual design -->
+    <link rel="stylesheet" href="style.css">
+    <!-- jQuery CDN for simplified DOM manipulation and AJAX requests -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Chart.js CDN for creating interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for icons (e.g., for edit/delete) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <!-- NEW: Logo for the main app page -->
+            <img src="images/logo.png" alt="FinTrack Pro Logo" class="site-logo">
+            <h1 class="app-title">FinTrack Pro</h1>
+            <p class="tagline">Manage your finances effectively.</p>
+            <!-- This section will be absolutely positioned to the top-right via CSS -->
+            <div class="user-profile">
+                Welcome, <span id="loggedInUsername">Guest</span>
+                <button id="logoutButton" class="btn btn-secondary btn-small logout-btn-header"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </header>
+
+        <!-- Global Summary Dashboard -->
+        <section class="summary-dashboard">
+            <div class="summary-card income-card">
+                <h3>Total Income</h3>
+                <p><i class="fas fa-plus-circle"></i> <span id="totalIncome">0.00</span> INR</p>
+            </div>
+            <div class="summary-card expenses-card">
+                <h3>Total Expenses</h3>
+                <p><i class="fas fa-minus-circle"></i> <span id="totalExpenses">0.00</span> INR</p>
+            </div>
+            <div class="summary-card balance-card">
+                <h3>Net Balance</h3>
+                <p><i class="fas fa-wallet"></i> <span id="netBalance">0.00</span> INR</p>
+            </div>
+        </section>
+
+        <!-- Section for adding new expenses -->
+        <section class="add-expense-section card">
+            <h2><i class="fas fa-plus-square"></i> Add New Transaction</h2>
+            <form id="expenseForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" name="description" placeholder="e.g., Groceries, Rent" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount (INR):</label>
+                        <input type="number" id="amount" name="amount" step="0.01" min="0" placeholder="e.g., 500.25" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select category</option>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Rent">Rent</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Education">Education</option>
+                            <option value="Salary">Salary (Income)</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-plus"></i> Add Transaction</button>
+            </form>
+            <!-- Message area for displaying feedback (e.g., success/error) -->
+            <div id="formMessage" class="message"></div>
+        </section>
+
+        <!-- Section for displaying all transactions -->
+        <section class="transactions-section card">
+            <h2><i class="fas fa-history"></i> Transaction History</h2>
+            <div class="filters">
+                <div class="form-group">
+                    <label for="filterCategory">Filter by Category:</label>
+                    <select id="filterCategory" name="filterCategory">
+                        <option value="all">All Categories</option>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Education">Education</option>
+                        <option value="Salary">Income (Salary)</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filterType">Filter by Type:</label>
+                    <select id="filterType" name="filterType">
+                        <option value="all">All Types</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filterStartDate">From Date:</label>
+                    <input type="date" id="filterStartDate" name="filterStartDate">
+                </div>
+                <div class="form-group">
+                    <label for="filterEndDate">To Date:</label>
+                    <input type="date" id="filterEndDate" name="filterEndDate">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="transactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount (INR)</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Transaction rows will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section for displaying expense charts -->
+        <section class="charts-section card">
+            <h2><i class="fas fa-chart-line"></i> Expense Overview</h2>
+            <div class="chart-flex-container">
+                <div class="chart-item">
+                    <h3>Expenses by Category</h3>
+                    <canvas id="categoryPieChart"></canvas>
+                </div>
+                <div class="chart-item">
+                    <h3>Expense Pattern Over Time</h3>
+                    <canvas id="expenseLineChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Custom Confirmation Modal (replacing browser's confirm) -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Confirm Action</h3>
+            <p id="modalMessage">Are you sure you want to perform this action?</p>
+            <div class="modal-buttons">
+                <button id="confirmYes" class="btn btn-danger">Yes</button>
+                <button id="confirmNo" class="btn btn-secondary">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New: Welcome Message Popup (Toast) -->
+    <div id="welcomeToast" class="welcome-toast"></div>
+
+    <!-- Link to our JavaScript file, placed at the end for better performance -->
+    <script src="script.js"></script>
+</body>
+</html>

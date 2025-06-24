@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - FinTrack Pro</title>
+    <!-- Link to the common stylesheet for styling the form and background -->
+    <link rel="stylesheet" href="style.css">
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Specific styles for the login/register pages - overrides some from style.css for auth container */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            /* Background image set in style.css */
+        }
+        .auth-container {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white for better background visibility */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 400px; /* Max width for the auth form */
+            text-align: center;
+            backdrop-filter: blur(5px); /* Apply blur to the background behind the card */
+            border: 1px solid rgba(224, 230, 237, 0.5); /* Subtle transparent border */
+        }
+        .auth-container h1 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label { /* Corrected from .form-container label */
+            margin-bottom: 10px;
+        }
+        .auth-container .btn-primary {
+            margin-top: 15px;
+        }
+        .auth-container p {
+            margin-top: 25px;
+            font-size: 0.95em;
+            color: #555;
+        }
+        .auth-container a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .auth-container a:hover {
+            text-decoration: underline;
+        }
+        /* Specific logo styling for auth pages */
+        .auth-logo {
+            width: 100px; /* Slightly larger logo for login/register */
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 25px; /* Space below logo */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <img src="images/logo.png" alt="FinTrack Pro Logo" class="auth-logo">
+        <h1>Register for FinTrack Pro</h1>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-user-plus"></i> Register</button>
+        </form>
+        <div id="formMessage" class="message"></div>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Function to Display Messages
+            function displayMessage(message, type) {
+                const messageDiv = $('#formMessage');
+                messageDiv.text(message);
+                messageDiv.removeClass('success error').addClass(type);
+                messageDiv.fadeIn().delay(3000).fadeOut();
+            }
+
+            $('#registerForm').on('submit', function(event) {
+                event.preventDefault();
+
+                const username = $('#username').val();
+                const password = $('#password').val();
+                const confirmPassword = $('#confirm_password').val();
+
+                if (password !== confirmPassword) {
+                    displayMessage('Passwords do not match.', 'error');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'api/register.php',
+                    method: 'POST',
+                    data: {
+                        username: username,
+                        password: password
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            displayMessage(response.message, 'success');
+                            $('#registerForm')[0].reset(); // Clear form
+                            setTimeout(function() {
+                                window.location.href = 'login.html'; // Redirect to login page
+                            }, 2000); // Wait 2 seconds before redirecting
+                        } else {
+                            displayMessage('Registration failed: ' + response.message, 'error');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        displayMessage('Network error or server issue during registration.', 'error');
+                        console.error('AJAX Error:', textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
