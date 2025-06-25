@@ -4,31 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - FinTrack Pro</title>
-    <!-- Link to the common stylesheet for styling the form and background -->
     <link rel="stylesheet" href="style.css">
-    <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Specific styles for the login/register pages - overrides some from style.css for auth container */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Full viewport height */
-            /* Background image set in style.css */
+            min-height: 100vh;
         }
         .auth-container {
-            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white for better background visibility */
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
             width: 100%;
-            max-width: 400px; /* Max width for the auth form */
+            max-width: 400px;
             text-align: center;
-            backdrop-filter: blur(5px); /* Apply blur to the background behind the card */
-            border: 1px solid rgba(224, 230, 237, 0.5); /* Subtle transparent border */
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(224, 230, 237, 0.5);
         }
         .auth-container h1 {
             font-size: 2em;
@@ -39,7 +34,7 @@
             margin-bottom: 20px;
             text-align: left;
         }
-        .form-group label { /* Corrected from .form-container label */
+        .form-group label {
             margin-bottom: 10px;
         }
         .auth-container .btn-primary {
@@ -58,14 +53,13 @@
         .auth-container a:hover {
             text-decoration: underline;
         }
-        /* Specific logo styling for auth pages */
         .auth-logo {
-            width: 100px; /* Slightly larger logo for login/register */
+            width: 100px;
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 25px; /* Space below logo */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>
@@ -94,7 +88,6 @@
 
     <script>
         $(document).ready(function() {
-            // Function to Display Messages
             function displayMessage(message, type) {
                 const messageDiv = $('#formMessage');
                 messageDiv.text(message);
@@ -125,10 +118,10 @@
                     success: function(response) {
                         if (response.success) {
                             displayMessage(response.message, 'success');
-                            $('#registerForm')[0].reset(); // Clear form
+                            $('#registerForm')[0].reset();
                             setTimeout(function() {
-                                window.location.href = 'login.html'; // Redirect to login page
-                            }, 2000); // Wait 2 seconds before redirecting
+                                window.location.href = 'login.html';
+                            }, 2000);
                         } else {
                             displayMessage('Registration failed: ' + response.message, 'error');
                         }

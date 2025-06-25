@@ -1,85 +1,79 @@
-/* Basic CSS Reset for consistent styling across browsers */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Makes padding and border included in element's total width/height */
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', sans-serif; /* A clean, modern font */
-    background-color: #f0f2f5; /* Fallback background color */
-    color: #333; /* Dark grey text for readability */
-    line-height: 1.6; /* Spacing between lines of text */
-    padding: 20px; /* Padding around the entire body content */
-
-    /* NEW: Background Image Styling */
-    background-image: url('images/background.png'); /* Path to your background image */
-    background-size: cover; /* Cover the entire viewport */
-    background-position: center center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-attachment: fixed; /* Keep the background fixed during scroll */
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    background-image: url('images/background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .container {
-    max-width: 1200px; /* Wider container for better layout */
-    margin: 20px auto; /* Center the container horizontally with some top/bottom margin */
-    background-color: #ffffff; /* White background for the main content box */
-    padding: 30px; /* Inner spacing within the container */
-    border-radius: 12px; /* Slightly rounded corners for a softer look */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* More prominent, professional shadow */
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Header Styling */
 .app-header {
     text-align: center;
     margin-bottom: 40px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #e0e6ed; /* Subtle separator */
-    position: relative; /* Needed for absolute positioning of user-profile */
-    display: flex; /* Use flexbox for main header alignment */
-    flex-direction: column; /* Stack logo, title, tagline vertically by default */
-    align-items: center; /* Center items horizontally */
+    border-bottom: 1px solid #e0e6ed;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
-/* NEW: Logo Styling */
 .site-logo {
-    width: 80px; /* Adjust size as needed */
-    height: 80px; /* Adjust size as needed */
-    border-radius: 50%; /* Makes the image round */
-    object-fit: cover; /* Ensures the image covers the area without distortion */
-    margin-bottom: 15px; /* Space below the logo */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the logo */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.app-header .app-title { /* New class for the main title */
+.app-header .app-title {
     color: #2c3e50;
-    font-size: 2.5em; /* Larger heading */
+    font-size: 2.5em;
     margin-bottom: 10px;
 }
 
 .app-header .tagline {
     color: #7f8c8d;
     font-size: 1.1em;
-    margin-bottom: 15px; /* Space between tagline and elements below */
+    margin-bottom: 15px;
 }
 
-/* User Profile Section in Header */
 .user-profile {
-    position: absolute; /* Position relative to .app-header */
-    top: 20px; /* Distance from top */
-    right: 20px; /* Distance from right */
+    position: absolute;
+    top: 20px;
+    right: 20px;
     font-size: 1.1em;
     color: #555;
-    display: flex; /* Arrange text and button side-by-side */
+    display: flex;
     align-items: center;
-    gap: 10px; /* Space between username and logout button */
-    padding: 8px 15px; /* Padding around the user info block */
-    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+    gap: 10px;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    z-index: 10; /* Ensure it stays above other elements */
-    backdrop-filter: blur(3px); /* Subtle blur effect for background elements behind it */
+    z-index: 10;
+    backdrop-filter: blur(3px);
 }
 
 .user-profile #loggedInUsername {
@@ -87,17 +81,16 @@ body {
     color: #3498db;
 }
 
-.btn-small { /* General small button style, used by logout */
+.btn-small {
     padding: 8px 15px;
     font-size: 0.9em;
 }
 
-/* Specific logout button style in header */
 .logout-btn-header {
-    background-color: #e74c3c; /* Red for logout */
+    background-color: #e74c3c;
     color: white;
-    border-radius: 5px; /* Slightly less rounded than main buttons */
-    box-shadow: none; /* No shadow for this small button */
+    border-radius: 5px;
+    box-shadow: none;
 }
 
 .logout-btn-header:hover {
@@ -105,133 +98,126 @@ body {
     transform: translateY(-1px);
 }
 
-
 h2 {
-    color: #2c3e50; /* A darker blue-grey for subheadings */
-    text-align: left; /* Align subheadings to left */
-    margin-bottom: 25px; /* Space below headings */
-    display: flex; /* For icon alignment */
+    color: #2c3e50;
+    text-align: left;
+    margin-bottom: 25px;
+    display: flex;
     align-items: center;
-    gap: 10px; /* Space between icon and text */
+    gap: 10px;
 }
 
-/* Card Styling for Sections */
 .card {
-    background-color: #ffffff; /* White background for all main sections */
-    padding: 25px; /* Inner spacing for sections */
-    border-radius: 10px; /* Rounded corners for sections */
-    margin-bottom: 30px; /* Space between sections */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Lighter shadow for sections */
-    border: 1px solid #e0e6ed; /* Subtle border for definition */
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e6ed;
 }
 
-
-/* Form Grid for Add Expense Section */
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid columns */
-    gap: 20px; /* Space between grid items */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
     margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 0; /* Reset margin for grid items */
+    margin-bottom: 0;
 }
 
 .form-group label {
-    display: block; /* Make labels take up full width, placing input below */
-    margin-bottom: 8px; /* Space below labels */
-    font-weight: bold; /* Bold text for labels */
-    color: #555; /* Slightly darker grey for labels */
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
 }
 
-/* All input types, and select elements */
 .form-group input[type="text"],
 .form-group input[type="number"],
 .form-group input[type="date"],
 .form-group input[type="password"],
 .form-group select {
-    width: 100%; /* Make input fields take full width of their container */
-    padding: 12px; /* Inner padding for inputs */
-    border: 1px solid #bdc3c7; /* Light grey border */
-    border-radius: 8px; /* Rounded corners for input fields */
-    font-size: 16px; /* Font size for input text */
-    color: #444; /* Text color inside inputs */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for border/shadow on focus */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #444;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Focus styles for all input types and select */
 .form-group input[type="text"]:focus,
 .form-group input[type="number"]:focus,
 .form-group input[type="date"]:focus,
 .form-group input[type="password"]:focus,
 .form-group select:focus {
-    border-color: #3498db; /* Blue border on focus */
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Light blue shadow on focus */
-    outline: none; /* Remove default outline */
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
 }
 
 .btn {
-    display: inline-flex; /* Use flex for button content (icon + text) */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Space between icon and text */
-    padding: 12px 25px; /* Padding for buttons */
-    border: none; /* No default border */
-    border-radius: 8px; /* Rounded corners for buttons */
-    font-size: 17px; /* Font size for button text */
-    font-weight: 600; /* Slightly bolder text */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transitions */
-    text-decoration: none; /* Remove underline for anchor-buttons */
-    text-align: center; /* Center text within button */
+    gap: 8px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    text-align: center;
 }
 
 .btn-primary {
-    background-color: #3498db; /* Blue background for primary buttons */
-    color: white; /* White text for primary buttons */
-    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3); /* Subtle shadow */
+    background-color: #3498db;
+    color: white;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
 }
 
 .btn-primary:hover {
-    background-color: #2980b9; /* Darker blue on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4); /* Enhanced shadow on hover */
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
 }
 
 .btn-block {
-    width: 100%; /* Make button take full width */
-    margin-top: 20px; /* Space above block button */
+    width: 100%;
+    margin-top: 20px;
 }
 
 .btn-danger {
-    background-color: #e74c3c; /* Red background for danger buttons (e.g., delete) */
-    color: white; /* White text for danger buttons */
-    padding: 8px 15px; /* Smaller padding for table action buttons */
-    font-size: 14px; /* Smaller font for table action buttons */
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
 }
 
 .btn-danger:hover {
-    background-color: #c0392b; /* Darker red on hover */
-    transform: translateY(-1px); /* Slight lift effect on hover */
+    background-color: #c0392b;
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
-    background-color: #bdc3c7; /* Grey background for secondary buttons */
+    background-color: #bdc3c7;
     color: #333;
 }
 
 .btn-secondary:hover {
-    background-color: #95a5a6; /* Darker grey on hover */
+    background-color: #95a5a6;
 }
 
-
 .btn-edit {
-    background-color: #f39c12; /* Orange for edit buttons */
+    background-color: #f39c12;
     color: white;
     padding: 8px 15px;
     font-size: 14px;
-    margin-right: 5px; /* Space between edit and delete */
+    margin-right: 5px;
 }
 
 .btn-edit:hover {
@@ -240,39 +226,38 @@ h2 {
 }
 
 .message {
-    margin-top: 15px; /* Space above message box */
-    padding: 10px; /* Inner padding for message box */
-    border-radius: 5px; /* Rounded corners */
-    font-weight: bold; /* Bold text */
-    text-align: center; /* Center align text */
-    display: none; /* Hidden by default, shown by JS */
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    display: none;
 }
 
 .message.success {
-    background-color: #d4edda; /* Light green for success */
-    color: #155724; /* Dark green text */
-    border: 1px solid #c3e6cb; /* Green border */
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
 
 .message.error {
-    background-color: #f8d7da; /* Light red for error */
-    color: #721c24; /* Dark red text */
-    border: 1px solid #f5c6cb; /* Red border */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
-/* Summary Dashboard Styling */
 .summary-dashboard {
-    display: flex; /* Arrange cards in a row */
-    justify-content: space-between; /* Distribute space evenly */
-    gap: 20px; /* Space between cards */
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
     margin-bottom: 30px;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap;
 }
 
 .summary-card {
-    flex: 1; /* Allow cards to grow and shrink */
-    min-width: 280px; /* Minimum width before wrapping */
-    background-color: #ecf0f1; /* Light background for cards */
+    flex: 1;
+    min-width: 280px;
+    background-color: #ecf0f1;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -287,7 +272,7 @@ h2 {
 }
 
 .summary-card p {
-    font-size: 1.8em; /* Larger font for numbers */
+    font-size: 1.8em;
     font-weight: bold;
     color: #2c3e50;
     display: flex;
@@ -297,109 +282,100 @@ h2 {
 }
 
 .summary-card i {
-    font-size: 0.8em; /* Slightly smaller icon */
+    font-size: 0.8em;
 }
 
-.summary-card.income-card p { color: #27ae60; } /* Green for income */
-.summary-card.expenses-card p { color: #e74c3c; } /* Red for expenses */
-.summary-card.balance-card p.positive { color: #27ae60; } /* Green for positive balance */
-.summary-card.balance-card p.negative { color: #e74c3c; } /* Red for negative balance */
-.summary-card.balance-card p.zero { color: #555; } /* Grey for zero balance */
+.summary-card.income-card p { color: #27ae60; }
+.summary-card.expenses-card p { color: #e74c3c; }
+.summary-card.balance-card p.positive { color: #27ae60; }
+.summary-card.balance-card p.negative { color: #e74c3c; }
+.summary-card.balance-card p.zero { color: #555; }
 
-
-/* Filters Section */
 .filters {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin-bottom: 25px;
     padding: 15px;
-    background-color: #f8fbfd; /* Very light blue background for filters */
+    background-color: #f8fbfd;
     border-radius: 8px;
     border: 1px solid #eef3f7;
 }
 
-/* Table Styling */
 .table-responsive {
-    overflow-x: auto; /* Allows horizontal scrolling on small screens */
+    overflow-x: auto;
 }
 
 #transactionsTable {
-    width: 100%; /* Table takes full width */
-    border-collapse: collapse; /* Remove space between table cells */
-    margin-top: 20px; /* Space above table */
-    background-color: #ffffff; /* White background for table */
-    border-radius: 8px; /* Rounded corners */
-    overflow: hidden; /* Ensures rounded corners apply to content */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); /* Very subtle table shadow */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 #transactionsTable thead th {
-    background-color: #34495e; /* Dark blue-grey for table header */
-    color: white; /* White text for header */
-    padding: 15px; /* Padding for header cells */
-    text-align: left; /* Left align header text */
-    font-weight: bold; /* Bold header text */
+    background-color: #34495e;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
 }
 
 #transactionsTable tbody tr {
-    border-bottom: 1px solid #ecf0f1; /* Light border between rows */
+    border-bottom: 1px solid #ecf0f1;
 }
 
 #transactionsTable tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Zebra striping for readability */
+    background-color: #f9f9f9;
 }
 
 #transactionsTable tbody td {
-    padding: 12px 15px; /* Padding for data cells */
-    vertical-align: middle; /* Vertically align content in middle */
+    padding: 12px 15px;
+    vertical-align: middle;
 }
 
-/* Styling for editable fields in table rows */
 #transactionsTable tbody td input,
 #transactionsTable tbody td select {
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1em;
-    width: 100%; /* Make them fill table cell */
+    width: 100%;
 }
 
-
-/* Specific styling for income/expense type in table */
 #transactionsTable tbody td.income-text {
-    color: #27ae60; /* Green for income */
+    color: #27ae60;
     font-weight: bold;
 }
 
 #transactionsTable tbody td.expense-text {
-    color: #e74c3c; /* Red for expense */
+    color: #e74c3c;
     font-weight: bold;
 }
 
-/* Chart Section Styling */
-.charts-section .chart-flex-container { /* Renamed from chart-container for clarity */
-    display: flex; /* Use flexbox for side-by-side charts */
-    flex-wrap: wrap; /* Allow charts to wrap on smaller screens */
-    gap: 30px; /* Space between charts */
-    justify-content: center; /* Center charts if there's extra space */
+.charts-section .chart-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     border: 1px solid #e0e6ed;
-    min-height: 400px; /* ADDED: Minimum height for the entire chart flex container */
-    align-items: center; /* Vertically align items within the flex container */
+    min-height: 400px;
+    align-items: center;
 }
 
 .charts-section .chart-item {
-    flex: 1; /* Allow each chart to take equal space */
-    min-width: 300px; /* Minimum width for charts before wrapping */
-    max-width: 45%; /* Max width to ensure two can fit side-by-side */
+    flex: 1;
+    min-width: 300px;
+    max-width: 45%;
     text-align: center;
-    /* ADDED: Fixed height for chart items to control canvas size */
     height: 350px;
-    /* ADDED: Use flexbox for centering canvas vertically within chart-item if needed */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -412,35 +388,30 @@ h2 {
     font-size: 1.2em;
 }
 
-
-/* Modal Styling */
 .modal {
-    /* ... (existing modal styles) ... */
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    /* This display: flex is often overridden by JS hide/show */
-    /* display: flex; removed from here to allow JS .hide() to work reliably */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: auto; /* Auto margin for centering */
+    margin: auto;
     padding: 30px;
     border: 1px solid #888;
-    width: 80%; /* Could be more specific, e.g. 50% on desktop */
-    max-width: 500px; /* Max width for consistency */
+    width: 80%;
+    max-width: 500px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    position: relative; /* For close button positioning */
+    position: relative;
     text-align: center;
 }
 
@@ -478,20 +449,19 @@ h2 {
     gap: 15px;
 }
 
-/* New: Welcome Toast Styling */
 .welcome-toast {
-    visibility: hidden; /* Hidden by default */
-    min-width: 250px; /* Small width */
-    background-color: rgba(39, 174, 96, 0.9); /* Green background, slightly transparent */
-    color: #fff; /* White text */
+    visibility: hidden;
+    min-width: 250px;
+    background-color: rgba(39, 174, 96, 0.9);
+    color: #fff;
     text-align: center;
     border-radius: 8px;
     padding: 16px;
     position: fixed;
-    z-index: 1100; /* Above modal */
-    left: 50%; /* Centered horizontally */
+    z-index: 1100;
+    left: 50%;
     transform: translateX(-50%);
-    bottom: 30px; /* At the bottom */
+    bottom: 30px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     opacity: 0;
     transition: visibility 0s, opacity 0.5s ease-in-out;
@@ -502,33 +472,31 @@ h2 {
     opacity: 1;
 }
 
-
-/* Responsive Design */
-@media (max-width: 992px) { /* Adjust breakpoint for chart wrapping */
+@media (max-width: 992px) {
     .charts-section .chart-flex-container {
-        flex-direction: column; /* Stack charts vertically on medium screens */
-        align-items: center; /* Center stacked charts */
-        min-height: unset; /* Remove fixed height when stacked */
+        flex-direction: column;
+        align-items: center;
+        min-height: unset;
     }
 
     .charts-section .chart-item {
-        max-width: 80%; /* Take up more width when stacked */
-        height: 300px; /* Adjust height for stacked charts on smaller screens */
+        max-width: 80%;
+        height: 300px;
     }
 
-    .user-profile { /* Adjust user profile position for smaller screens */
-        position: static; /* Remove absolute positioning */
+    .user-profile {
+        position: static;
         width: 100%;
         justify-content: center;
         margin-top: 20px;
-        margin-bottom: 15px; /* Add some space below it */
-        padding: 10px; /* Adjust padding */
+        margin-bottom: 15px;
+        padding: 10px;
     }
-    .app-header .tagline { /* Reduce bottom margin on tagline when user-profile is static */
+
+    .app-header .tagline {
         margin-bottom: 5px;
     }
 }
-
 
 @media (max-width: 768px) {
     body {
@@ -554,12 +522,12 @@ h2 {
     }
 
     .summary-dashboard {
-        flex-direction: column; /* Stack cards vertically */
+        flex-direction: column;
         gap: 15px;
     }
 
     .summary-card {
-        min-width: unset; /* Remove min-width to allow full width */
+        min-width: unset;
         padding: 20px;
     }
 
@@ -568,7 +536,7 @@ h2 {
     }
 
     .form-grid {
-        grid-template-columns: 1fr; /* Single column layout for forms */
+        grid-template-columns: 1fr;
         gap: 15px;
     }
 
@@ -580,7 +548,7 @@ h2 {
     }
 
     .filters {
-        grid-template-columns: 1fr; /* Single column for filters */
+        grid-template-columns: 1fr;
         gap: 15px;
     }
 
@@ -594,12 +562,12 @@ h2 {
         width: 95%;
         padding: 20px;
     }
+
     .charts-section .chart-item {
-        height: 250px; /* Even smaller height for mobile */
+        height: 250px;
     }
 }
 
-/* Hide print button when printing */
 @media print {
     .btn-primary {
         display: none;

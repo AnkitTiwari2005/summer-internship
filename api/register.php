@@ -1,25 +1,16 @@
 <?php
-// This PHP script handles new user registrations.
-
-// Include the database configuration file
-require_once 'db_config.php'; // Corrected path
-
-// Set the response header to JSON
+require_once 'db_config.php';
 header('Content-Type: application/json');
 
-// Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize and validate input data
     $username = htmlspecialchars(trim($_POST['username'] ?? ''));
-    $password = $_POST['password'] ?? ''; // Password will be hashed, so trim/htmlspecialchars less critical here
+    $password = $_POST['password'] ?? '';
 
-    // Server-side validation
     if (empty($username) || empty($password)) {
         echo json_encode(['success' => false, 'message' => 'Username and password cannot be empty.']);
         exit;
     }
 
-    // Check if username already exists
     $sql_check = "SELECT id FROM users WHERE username = ?";
     if ($stmt_check = $conn->prepare($sql_check)) {
         $stmt_check->bind_param("s", $username);
@@ -38,11 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Hash the password securely
-    // PASSWORD_BCRYPT is a strong, recommended hashing algorithm
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-    // Prepare an SQL INSERT statement to add the new user
     $sql_insert = "INSERT INTO users (username, password_hash) VALUES (?, ?)";
     
     if ($stmt_insert = $conn->prepare($sql_insert)) {

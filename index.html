@@ -4,30 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinTrack Pro - Expense Manager</title>
-    <!-- Link to our custom stylesheet for visual design -->
     <link rel="stylesheet" href="style.css">
-    <!-- jQuery CDN for simplified DOM manipulation and AJAX requests -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- Chart.js CDN for creating interactive charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome for icons (e.g., for edit/delete) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header class="app-header">
-            <!-- NEW: Logo for the main app page -->
             <img src="images/logo.png" alt="FinTrack Pro Logo" class="site-logo">
             <h1 class="app-title">FinTrack Pro</h1>
             <p class="tagline">Manage your finances effectively.</p>
-            <!-- This section will be absolutely positioned to the top-right via CSS -->
             <div class="user-profile">
                 Welcome, <span id="loggedInUsername">Guest</span>
                 <button id="logoutButton" class="btn btn-secondary btn-small logout-btn-header"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
         </header>
 
-        <!-- Global Summary Dashboard -->
         <section class="summary-dashboard">
             <div class="summary-card income-card">
                 <h3>Total Income</h3>
@@ -43,7 +36,6 @@
             </div>
         </section>
 
-        <!-- Section for adding new expenses -->
         <section class="add-expense-section card">
             <h2><i class="fas fa-plus-square"></i> Add New Transaction</h2>
             <form id="expenseForm">
@@ -79,11 +71,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-plus"></i> Add Transaction</button>
             </form>
-            <!-- Message area for displaying feedback (e.g., success/error) -->
             <div id="formMessage" class="message"></div>
         </section>
 
-        <!-- Section for displaying all transactions -->
         <section class="transactions-section card">
             <h2><i class="fas fa-history"></i> Transaction History</h2>
             <div class="filters">
@@ -133,13 +123,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Transaction rows will be inserted here by JavaScript -->
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Section for displaying expense charts -->
         <section class="charts-section card">
             <h2><i class="fas fa-chart-line"></i> Expense Overview</h2>
             <div class="chart-flex-container">
@@ -155,7 +143,6 @@
         </section>
     </div>
 
-    <!-- Custom Confirmation Modal (replacing browser's confirm) -->
     <div id="confirmationModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -168,10 +155,8 @@
         </div>
     </div>
 
-    <!-- New: Welcome Message Popup (Toast) -->
     <div id="welcomeToast" class="welcome-toast"></div>
 
-    <!-- Link to our JavaScript file, placed at the end for better performance -->
     <script src="script.js"></script>
 </body>
 </html>

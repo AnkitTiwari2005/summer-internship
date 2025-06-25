@@ -1,59 +1,42 @@
-// Ensure the DOM is fully loaded before running any script
 $(document).ready(function() {
-    // Ensure the modal is hidden on document ready, just in case CSS doesn't apply instantly
     $('#confirmationModal').hide();
 
-    // --- Global Variables ---
-    let loggedInUser = null; // Stores logged-in user's ID and username
-    let categoryPieChartInstance; // For the Pie chart
-    let expenseLineChartInstance; // For the Line chart
-    let resolveModalPromise; // For custom confirmation modal
+    let loggedInUser = null;
+    let categoryPieChartInstance;
+    let expenseLineChartInstance;
+    let resolveModalPromise;
 
-    // --- Authentication Check & User Display ---
     function checkLoginStatus() {
         const user = localStorage.getItem('loggedInUser');
         if (user) {
             loggedInUser = JSON.parse(user);
-            $('#loggedInUsername').text(loggedInUser.username); // Display username statically
-            fetchAndDisplayExpenses(); // Fetch user-specific expenses
-
-            // Show welcome toast only if it's the first time landing on index.html after login
+            $('#loggedInUsername').text(loggedInUser.username);
+            fetchAndDisplayExpenses();
             const showWelcome = sessionStorage.getItem('showWelcomeToast');
             if (showWelcome === 'true') {
                 showToast('Welcome back, ' + loggedInUser.username + '!');
-                sessionStorage.removeItem('showWelcomeToast'); // Clear flag
+                sessionStorage.removeItem('showWelcomeToast');
             }
-
         } else {
-            // If not logged in, redirect to login page
             window.location.href = 'login.html';
         }
     }
 
-    // Handle Logout Button Click
     $('#logoutButton').on('click', function() {
-        // Clear local storage and session storage
         localStorage.removeItem('loggedInUser');
-        sessionStorage.removeItem('showWelcomeToast'); // Ensure welcome toast doesn't show on next login if user returns to app
-
-        // Make an AJAX call to logout.php to destroy server-side session
+        sessionStorage.removeItem('showWelcomeToast');
         $.ajax({
             url: 'api/logout.php',
-            method: 'POST', // Use POST for logout for better practice
+            method: 'POST',
             success: function() {
-                // Redirect to login page after successful logout
                 window.location.href = 'login.html';
             },
             error: function() {
-                // Even if AJAX fails, clear local storage and redirect
                 window.location.href = 'login.html';
             }
         });
     });
 
-    // --- Utility Functions ---
-
-    // Function to Display Messages
     function displayMessage(message, type) {
         const messageDiv = $('#formMessage');
         messageDiv.text(message);
@@ -61,38 +44,32 @@ $(document).ready(function() {
         messageDiv.fadeIn().delay(3000).fadeOut();
     }
 
-    // New: Function to show a temporary toast message
     function showToast(message) {
         const toastDiv = $('#welcomeToast');
         toastDiv.text(message);
-        toastDiv.addClass('show'); // Add 'show' class to trigger animation
+        toastDiv.addClass('show');
         setTimeout(function(){
-            toastDiv.removeClass('show'); // Remove 'show' class to fade out
-        }, 3000); // Display for 3 seconds
+            toastDiv.removeClass('show');
+        }, 3000);
     }
 
-    // Custom Confirmation Modal Function
     function showConfirmationModal(message) {
         return new Promise((resolve) => {
             resolveModalPromise = resolve;
             $('#modalMessage').text(message);
             $('#confirmationModal').css('display', 'flex');
-
             $('#confirmYes').off('click').on('click', function() {
                 $('#confirmationModal').hide();
                 resolveModalPromise(true);
             });
-
             $('#confirmNo').off('click').on('click', function() {
                 $('#confirmationModal').hide();
                 resolveModalPromise(false);
             });
-
             $('.close-button').off('click').on('click', function() {
                 $('#confirmationModal').hide();
                 resolveModalPromise(false);
             });
-
             $(window).off('click.modalClose').on('click.modalClose', function(event) {
                 if ($(event.target).is('#confirmationModal')) {
                     $('#confirmationModal').hide();
@@ -102,8 +79,6 @@ $(document).ready(function() {
             });
         });
     }
-
-    // --- Core Data Display and Update Functions ---
 
     function fetchAndDisplayExpenses() {
         if (!loggedInUser || !loggedInUser.id) {
@@ -117,7 +92,7 @@ $(document).ready(function() {
         const filterEndDate = $('#filterEndDate').val();
 
         const filterData = {
-            user_id: loggedInUser.id, // Pass the logged-in user's ID
+            user_id: loggedInUser.id,
             category: filterCategory,
             type: filterType,
             startDate: filterStartDate,
@@ -183,7 +158,6 @@ $(document).ready(function() {
                         });
                     }
 
-                    // Update the summary dashboard
                     $('#totalIncome').text(totalIncome.toFixed(2));
                     $('#totalExpenses').text(totalExpenses.toFixed(2));
                     const netBalance = totalIncome - totalExpenses;
@@ -229,9 +203,6 @@ $(document).ready(function() {
         return optionsHtml;
     }
 
-
-    // --- Event Handlers ---
-
     $('#expenseForm').on('submit', function(event) {
         event.preventDefault();
 
@@ -241,7 +212,7 @@ $(document).ready(function() {
         }
 
         const formData = {
-            user_id: loggedInUser.id, // Include user_id
+            user_id: loggedInUser.id,
             description: $('#description').val(),
             amount: $('#amount').val(),
             category: $('#category').val(),
@@ -298,7 +269,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {
                     id: transactionId,
-                    user_id: loggedInUser.id // Include user_id for verification
+                    user_id: loggedInUser.id
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -335,7 +306,7 @@ $(document).ready(function() {
         row.find('.edit-mode').hide();
         row.find('.edit-btn, .delete-btn').show();
         row.find('.save-btn, .cancel-btn').hide();
-        fetchAndDisplayExpenses(); // Re-fetch to revert changes
+        fetchAndDisplayExpenses();
     });
 
     $('#transactionsTable').on('click', '.save-btn', function() {
@@ -349,11 +320,11 @@ $(document).ready(function() {
 
         const updatedData = {
             id: transactionId,
-            user_id: loggedInUser.id, // Include user_id
+            user_id: loggedInUser.id,
             description: row.find('.edit-description').val(),
             amount: row.find('.edit-amount').val(),
             category: row.find('.edit-category').val(),
-            date: row.find('td:first').text() // Date is not editable inline for simplicity
+            date: row.find('td:first').text()
         };
 
         if (!updatedData.description || !updatedData.amount || !updatedData.category) {
@@ -393,11 +364,7 @@ $(document).ready(function() {
         fetchAndDisplayExpenses();
     });
 
-
-    // --- Charting Functions ---
-
     function updateCharts(transactions) {
-        // --- Data for Pie Chart (Expenses by Category) ---
         const categoryExpenses = {};
         transactions.forEach(transaction => {
             if (transaction.category !== 'Salary') {
@@ -425,15 +392,15 @@ $(document).ready(function() {
                     label: 'Amount (INR)',
                     data: pieChartData,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.7)', // Food
-                        'rgba(54, 162, 235, 0.7)', // Transport
-                        'rgba(255, 206, 86, 0.7)', // Utilities
-                        'rgba(75, 192, 192, 0.7)', // Rent
-                        'rgba(153, 102, 255, 0.7)', // Entertainment
-                        'rgba(255, 159, 64, 0.7)', // Shopping
-                        'rgba(199, 199, 199, 0.7)', // Healthcare
-                        'rgba(83, 109, 254, 0.7)', // Education
-                        'rgba(17, 239, 203, 0.7)' // Other
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                        'rgba(255, 159, 64, 0.7)',
+                        'rgba(199, 199, 199, 0.7)',
+                        'rgba(83, 109, 254, 0.7)',
+                        'rgba(17, 239, 203, 0.7)'
                     ],
                     borderColor: '#ffffff',
                     borderWidth: 2
@@ -475,7 +442,6 @@ $(document).ready(function() {
             }
         });
 
-        // --- Data for Line Chart (Expense Pattern Over Time) ---
         const dailyExpenses = {};
         transactions.forEach(transaction => {
             if (transaction.category !== 'Salary') {
@@ -510,7 +476,7 @@ $(document).ready(function() {
                     pointBackgroundColor: 'rgba(52, 152, 219, 1)',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(52, 152, 219, 1)',
+                    pointHoverBorderColor: 'rgba(52, 152, 219, 1)'
                 }]
             },
             options: {
@@ -564,6 +530,5 @@ $(document).ready(function() {
         });
     }
 
-    // --- Initial Load ---
-    checkLoginStatus(); // Call this first to check session and redirect if needed
+    checkLoginStatus();
 });
